@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>[论文解读]A Data-Driven Approach for Learning to Control Computers - lornd&#39;s blog</title>
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友情链接
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友情链接
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">lornd's Blog</p>
+    
+    
+      <p class="subtitle">学算法时一定要想怎么去改进！</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        [论文解读]A Data-Driven Approach for Learning to Control Computers
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="https://lornd.top" rel="nofollow">
+    <img no-lazy src="\images\avatar.jpg">
+    <p>lornd</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2023年9月12日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="[论文解读]A Data-Driven Approach for Learning to Control Computers" data-path="/null.html">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <p>论文地址：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2202.08137v1">A Data-Driven Approach for Learning to Control Computers</a> 。</p>
+<h2 id="摘要">摘要</h2>
+<p>如果机器能够和人类一样使用计算机，进而在每天的任务上都帮助我们，这会是非常有用的。在这个场景下，还可以利用大规模的专家演示和人类对互动行为的判断，这是推动 AI 最近取得成功的两个因素。在本文中，我们研究基于自然语言描述的目标，利用鼠标和键盘操控电脑的场景。我们不专注于人工设置的课程和特定的动作空间，而是基于实际人机交互的行为先验，提出一个以强化学习为中心的可扩展方法。我们在 Miniwob++ 环境（一套富有挑战性的计算机控制问题）上达到了最先进的水平，和人类的平均水平相当，并且发现了跨任务转移的有力证据。结果表明：在训练机器使用计算机时，使用统一的人机界面是有用的。总之，我们的结果表明了一个范式，可以实现超越控制 MiniWob++ 的能力，并像人类一样控制计算机。</p>
+<h2 id="背景介绍">背景介绍</h2>
+<p>最近关于自然语言、代码生成和 3D 虚拟环境中多模态交互行为方面的研究，已经产生了有着强大的表达能力、上下文意识和通用知识的模型。这些研究引人注目地展示了两种因素的力量：（1）机器和人类之间一致的丰富的组合输出空间；（2）利用大量的人类数据和判断来训练机器行为。</p>
+<p>有一个领域，同时具备这两种因素，但是受到的关注较少，那就是数字设备控制。其中包括使用数字设备来完成各种有用的任务。由于它几乎完全使用数字信息，该领域在数据采集和控制并行方面具有良好的扩展性（相较于机器人或者聚变反应堆）。它还将多样的多模态的输入与表达性的，可组合的，与人类兼容的功能结合起来。在本文中，我们关注使用键盘鼠标的计算机控制，其中观测的状态为像素和 DOM 文档。</p>
+<p>在计算机控制最初的研究中，一个有用的环境是 MiniWob++ 任务集，其中包含了一系列指令遵循任务，需要进行点击、输入、表单填写和其他基础的计算机交互。MiniWob++ 进一步提供了程序定义的奖励。这些任务是迈向更开放的人机交互的第一步，在这些交互任务中，人类使用自然语言指定任务，并在后续提供性能判断。</p>
+<p>我们专注于训练智能体解决这些任务，使用的方法原则上适用于人们希望在任何数字设备上执行的任务，同时具有理想的数据扩展性和计算扩展性。因此我们转向强化学习（RL）和动作克隆（BC）的组合，其中后者得益于人类和智能体之间动作空间（即鼠标和键盘）的对齐。这个组合在 MiniWob 的构想中被提出，但当时并没有发现可以产生高分的智能体。随后的工作一直在尝试提升智能体的表现，包括让智能体访问特定于 DOM 的操作，课程方法，以及探索限制方法，用精心策划的指导减少每一步可行的动作的数量。</p>
+<p>重新审视模仿和强化学习的简单且可扩展的组合，我们发现实现高性能的主要缺失因素就是用于行为克隆的人类轨迹数据集的大小。随着人类数据量的增加，性能提升稳定，并且在数据集大小高达先前研究使用数据的 400 倍时，依旧能持续观测到改进。我们使用这些数据的结果大大超过了之前最先进的性能，甚至能够在整个任务集中达到人类的平均水平。</p>
+<h2 id="本文方法">本文方法</h2>
+<h3 id="miniwob">MiniWob++</h3>
+<p>MiniWob++ 是一系列的基于网络浏览器的任务。任务范围包括了从简单的按钮点击到复杂的表单填写。例如：给定特定的指令，预定一个机票。对于每个任务，可以获得程序定义的奖励，这允许我们使用标准的强化学习方法。</p>
+<p>之前在 MiniWob++ 上的工作考虑了能够直接访问 DOM 操作的架构，允许智能体直接与 DOM 元素进行交互（即使它实际上不可见），而不需要通过鼠标或键盘来导航到 DOM 元素。<strong>相反，我们选择仅仅使用基于鼠标和键盘的操作</strong>。这简化了人类行为数据的使用，并且我们进一步假设这样的界面能更好地转移到不需要与 DOM 元素进行交互的计算机控制任务（甚至不基于浏览器的任务）。最后，很多 MiniWob++ 任务需要点击或拖曳动作，这些动作不能被基于 DOM 元素的动作实现。</p>
+<div class="gallery ">
+              <p><img src="/images/dda/fig9.png" class="lazyload" data-srcset="/images/dda/fig9.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 9"></p>
+            </div>
+<p>与之前的 MiniWob++ 研究相同，<strong>我们让我们的智能体访问由环境提供的文本字符串词典，这些字符串必须被输入到给定任务的输入字段中</strong>（如图 9 所示）。这有助于避免从稀疏强化学习输入学习生成文本模型时的探索问题。但是后续实验结果会表明，即使没有这个输入，智能体也能够展现最先进的性能。</p>
+<p>MiniWob 环境是实时的，这带来了技术上和算法上的复杂性。例如，由于观测的状态可能会被计算机资源竞争所带来的滞后性所影响，因此并不能保证动作会在时间上导致哪个状态。对于提供演示的人类参与者，我们保证运行环境的服务器有充足的资源以最小化本地机器上的时间抖动。在机器上，我们以 30Hz 的频率同步进行观测和行动。对于智能体而言，任何时间抖动肯定与人类经历的时间抖动不同。然而，<strong>大多数 MiniWob++ 任务对时间不敏感</strong>，我们的结果也表明：这种不匹配在实践中并不成问题。此外，我们发现<strong>删除演示数据中没有行动的步骤</strong>（这种操作只会增大时间上的差异）会得到最好的结果。与之前的研究相同，<strong>我们的人类分数和智能体分数并不会随着时间进行折损</strong>。</p>
+<h3 id="环境接口">环境接口</h3>
+<p>为了让智能体能够像人类一样使用电脑，需要一个合适的接口以传输和接收状态和动作。原始的 MiniWob++ 任务集提供了一种基于 Selenium 的接口。<strong>我们决定实现一个可供替代的环境栈，以灵活支持可以在 web 浏览器中完成的任何任务</strong>。这个界面从根本上进行了安全性、功能性和性能的优化。</p>
+<p><strong>安全性</strong> 我们在 Sandbox2 容器中运行网页浏览器（Google Chrome），该容器提供 chroot 监狱，并限制访问任何可能用于破解主机系统的系统调用。我们进一步使用 TCP 代理服务器讲所有网络流量重定向到本地服务端套接字（socket）。这使得我们能够精确控制可以从浏览器中访问的内容。这些安全特性不仅对安全的智能体-环境交互十分重要，并且能够简化在公开系统如 Amazib Mechanical Turk 上录制演示的过程，因为人类和智能体都不能使用浏览器本身来攻击主机系统或者网络资源。</p>
+<p>原始的 MiniWob++ 环境通过 Selenium 访问内部浏览器状态并发出控制指令。而我们直接与 Chrome 开发工具协议（Chrome DevTools Protocol, CDP）交互，以检索浏览器内部信息如 DOM 数等，并且在网页上运行开发者提供的 JacaScript 代码。我们通过在启动时传递给浏览器的文件描述符访问 CDP 。这样做是为了最小化攻击面，并且遵循 web 驱动程序作者提供的安全建议。</p>
+<p><strong>功能性</strong> 我们希望智能体能使用和人类用户相同的操作方法与标准的网页浏览器进行交互。为了实现这一目标，我们的环境直接连接到 X11 服务器，以输入鼠标和键盘命令，接收当前帧缓冲。这减少了人类和代理环境交互的领域转换，但是原始的 Selenium 接口难以做到这一点。例如，鼠标拖曳操作很难通过 Selenium 实现。</p>
+<p>通过 X11 进行工作还有其他关键的优点：（1）智能体可以与完整的浏览器进行交互（包括选项卡和地址栏）；（2）因为人类和智能体所处的环境是相同的，大规模录制第一人称的演示数据很容易；（3）我们可以渲染上下文敏感的系统鼠标指针。</p>
+<p>我们使用 C++ 实现了整个环境，以支持低延迟交互。这非常重要，因为如果总输入延迟太高，准确的鼠标移动就很难做到。</p>
+<h3 id="智能体架构">智能体架构</h3>
+<p>最终，我们发现没有必要实现专门的 DOM 处理架构（例如基于图网络）。相反，受到最近的多模态架构上的工作的启发，我们使用了最小多模态特定处理，主要依靠多模态 Transformer 灵活地关注相关信息。如图 2 所示：</p>
+<div class="gallery ">
+              <p><img src="/images/dda/fig2.png" class="lazyload" data-srcset="/images/dda/fig2.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 2"></p>
+            </div>
+<p><strong>感知</strong> 智能体接收视觉输入（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>165</mn><mo>×</mo><mn>220</mn></mrow><annotation encoding="application/x-tex">165 \times 220</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">6</span><span class="mord">5</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">2</span><span class="mord">0</span></span></span></span> RGB 像素）和语言输入。像素输入经过一系列的四个 ResNet 块，每块的内核为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3\times 3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> ，步长分别为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn></mrow><annotation encoding="application/x-tex">2, 2, 2, 2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span></span></span></span> ，输出通道数逐渐增长 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>32</mn><mo separator="true">,</mo><mn>128</mn><mo separator="true">,</mo><mn>256</mn><mo separator="true">,</mo><mn>512</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(32, 128, 256, 512)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mord">2</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">5</span><span class="mord">1</span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 。最终得到的结果为一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>14</mn><mo>×</mo><mn>11</mn></mrow><annotation encoding="application/x-tex">14\times 11</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">1</span></span></span></span> 的特征向量，我们将其展平成一个 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>154</mn></mrow><annotation encoding="application/x-tex">154</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">5</span><span class="mord">4</span></span></span></span> 个 token 的列表。</p>
+<p>三种语言输入——任务指令、DOM 和任务字段（任务字段只用于策略）使用同一个模块进行处理：每个文本字符串都被划分成 token，每个 token 又通过可学习的嵌入表（词汇量为 370 词）映射为 64 维的嵌入向量。我们为词汇表之外的输入单词保留了额外的 1000 个可索引的嵌入。对于这些单词，使用 64 位哈希函数计算索引，并将输出缩减为 370 到 1369 之间的整数。使用具有 4 个头的 1 层 transformer（language transformer），我们通过交叉注意力机制处理每个单独字符串的 token 嵌入，以产生一个单独的 512 维嵌入向量——token 嵌入被用来生成键和值，并且使用额外的可学习嵌入作为查询。额外的可学习嵌入为注意力机制提供了独立于输入的组件。这类似于 BERT 中使用的特殊 <code>[CLS]</code> 标记，其输出可以直接用作 transformer 的总输出。</p>
+<p><strong>多模态集成和记忆</strong> 视觉输入嵌入，从 DOM 和任务指令中产生的语言嵌入以及两个额外的学习嵌入被输入到具有 8 层，8 头和 512 维嵌入的多模态 transformer 中。</p>
+<p>额外嵌入所对应的经过处理后的输出，与特征均值池化操作的结果，通过剩余输出和前一个动作的嵌入进行连接。得到的 1536 维向量被输入到一个双层 LSTM 中，每一层有 512 个隐藏单元。残差连接会绕过每个 LSTM 层。</p>
+<p>我们并没有在最终配置中进行 LSTM 消融实验，但是早期的调整表明：相较于单层 LSTM 或前馈网络，双层 LSTM 提升了性能。这可能是因为双层 LSTM 相关的参数数量增加，因为在调整时我们并没有控制参数数量。我们还注意到，记忆对某些任务非常有用，例如那些有着移动元素的任务。</p>
+<p><strong>策略</strong> 智能体的策略包括 4 个输出：动作类型，光标坐标，键盘按键索引和任务字段索引。除了光标坐标外，每个输出都被建模成一个单独的离散概率分布。光标坐标被建模成两个离散分布（高度坐标和宽度坐标），每个维度被分成 51 个区块。这是唯一一个自回归的策略组件，其中高度坐标取决于宽度坐标。</p>
+<p>操作类型是从一个包括 10 个可能的动作的集合中选择的，其中包括了 <code>no-op</code> （表示不进行任何操作），7 种鼠标操作（移动，点击，双击，按下，松开，上滑滚轮，下滑滚轮），和 2 种键盘操作（按下键盘，输入文本）。按下按键这个动作用于输入一个按键或者一组按键（如 <code>CTRL + C</code>）。而输入文本动作用于输入一个 MiniWob 任务字段中的字符串。</p>
+<p>对于剩下的策略输出的采样取决于动作类型的选择——即，如果选择移动鼠标，那么就会对光标坐标进行采样；如果选择输入文本，就会对任务字段索引进行采样（以确定输入哪个任务字段）；如果选择按下键盘，就会对键盘按键索引进行采样（以确定要按下哪一个键）。</p>
+<p>动作类型，光标坐标和键盘按键索引分布的回归值通过线性变换产生；而任务字段索引的回归值通过点积注意力产生。注意力策略的工作方式如下：首先通过线性变换产生一个查询（query）。再使用一个单独的线性变换从可用任务字段的嵌入中生成键（key）。最后的回归值就是通过查询和键的点积，并且应用 softmax 得到的注意力权重。</p>
+<p>在消融实验中，我们使用了两种替代动作类型，允许智能体直接对 DOM 进行操作：（1）DOM 点击，用于出发特定 DOM 元素上的点击事件；（2）DOM 文本输入，用于直接将任务字段写入到指定的 DOM 元素中。这些动作需要一个额外的策略输出（DOM 元素索引）以确定需要点击哪个 DOM 元素。这个输出通过上述的注意力策略生成，但是是对 DOM 元素嵌入使用注意力机制。对于 DOM 文本输入动作，我们复用了任务字段索引输出以确定输入哪些文本。</p>
+<h3 id="人类数据收集">人类数据收集</h3>
+<p>由于智能体和人类使用相同的接口，人类演示的使用在原始的 MiniWob 环境中就已经被使用。然而，在 MiniWob 的研究中，只使用了 17 小时的人类数据（相较于随机策略，纯行为克隆策略只多解决了 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">5</span><span class="mord">%</span></span></span></span> 的任务）；在之后的 MiniWob++ 论文的一系列任务中，每个任务使用了 1000 个演示。由于最近的研究趋势表明了数据规模对性能的影响，很自然就能想到重新考虑更大量的人类演示的使用。</p>
+<p>我们从 77 位人类参与者上收集了 104 个 MiniWob++ 任务的 240 万个演示，总计约 6300 小时。参与者通过众包数据收集平台招募，并且按小时支付报酬。人类数据收集过程收到伦理审查过程的约束。</p>
+<p>人类可以在不进行联系的情况下很好地完成很多 MiniWob++ 中的任务。然而，一小部分任务需要练习，学习专业知识（如 POSIX 终端命令），理解模板目标意图中少量的歧义，或者调整时间或滞后。因此，我们观察到随着练习，人类的表现越来越好，为成功的轨迹会从数据集中过滤出去。</p>
+<h3 id="训练">训练</h3>
+<p>我们使用一种直接的方法来训练智能体，即行为克隆（BC）和强化学习（RL）（使用 VMPO 方法）的组合，这样的组合在很多具有挑战性的领域中取得了巨大的成功。训练超参数在表 1 中给出：</p>
+<div class="gallery ">
+              <p><img src="/images/dda/tab1.png" class="lazyload" data-srcset="/images/dda/tab1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="表 1"></p>
+            </div>
+<p>为了结合模仿学习和强化学习，可以采取以下两种方法：（1）对两者的损失值进行加权结合，从零开始协同训练；（2）先使用 BC 进行预训练，再用 RL 进行微调训练，其中既可以使用反馈给 BC 的发散惩罚，也可以不使用。在我们的工作中，我们考虑第一种方法，并且给予 BC 和 RL 的损失值同等的权重，虽然能够确认：使用 BC 进行预训练可以提升学习的效率。</p>
+<p>在用于 BC 训练之前，我们的人类演示数据首先被分成了训练集和测试集（数据量分别为 220 万和 31 万）。其中，最终奖励少于 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.5</mn></mrow><annotation encoding="application/x-tex">0.5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span> 的 episode 被视为不成功（约 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>5</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">5\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">5</span><span class="mord">%</span></span></span></span>），从数据集中被过滤掉了。除此之外，我们会从演示中删去 <code>no-op</code> 操作，即人类不做出任何操作的动作。最多连续删除 10 步动作。智能体在这些数据上进行了无差别的训练：所有的任务都进行了协同训练，并且在演示上进行均匀采样。这可能会根据收集的数据，过滤过程，以及演示的长度，在任务表示上引入轻微的不对称。</p>
+<p>我们选择协同训练基于两个原因：（1）我们观察到了显著的转移效应，在协同训练中，每个任务的帧训练变得更加高效。（2）我们的终极目标是训练一个通用的智能体，因此我们要求一个智能体尽可能拥有多种功能。</p>
+<h2 id="实验验证">实验验证</h2>
+<h3 id="miniwob-上人类水平的表现">MiniWob++ 上人类水平的表现</h3>
+<div class="gallery ">
+              <p><img src="/images/dda/fig3.png" class="lazyload" data-srcset="/images/dda/fig3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 3"></p>
+            </div>
+<p>将本文方法的表现与之前的文献进行对比是困难的，引文之前的论文往往只解决了一部分 Miniwob++ 的任务。因此我们为每个单独的任务分别选取了已发表的最好的性能，并且用此聚合性能作为我们智能体的比较性能（对于使用了课程学习和其他增强方法的方法，也使用了单独的聚合措施）。如图 3 所示：本文智能体的性能明显超过了当前 sota 的表现。除此之外，我们发现：我们的智能体在 MiniWob++ 任务集上达到了人类平均水平。这种表现是通过 BC 和 RL 协同训练实现的，消融实验表明：删除这两种信号的任何一种都会使效果变差。图 6 展示了在航班预定任务中智能体找i到的一条成功的轨迹。</p>
+<div class="gallery ">
+              <p><img src="/images/dda/fig6.png" class="lazyload" data-srcset="/images/dda/fig6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 6"></p>
+            </div>
+<p>仔细检查智能体在任务集中的表现，我们发现：虽然平均分数达到了人类平均水平，仍有部分任务人类表现明显优于智能体（图 4）。具体地，智能体在两个任务上没有获取到任何分数：<code>simon-says</code> 和 <code>terminal</code>。甚至 <code>simon-says</code> 环境对于人类来说都是有挑战性的。它需要记住一个随机的按键序列，并重复该按键序列。我们的智能体以 2Hz 的频率观察环境，这意味着它经常会错过序列中最少一个按钮的展示。<code>terminal</code> 环境需要使用 Unix 终端搜索和删除文件。由于大多数人没有使用 Unix 终端的经验，人类参与者需要训练如何进行这项任务以获得很好的表现。为了了解为什么智能体无法在这个任务上得到任何分数，需要进一步的研究，尤其是在智能体能够完成一些按键相关的任务（如 <code>text-transform</code>，<code>simple-arithmetic</code> 和 <code>enter-text-2</code>）的情况下。同样地，也有一些任务，智能体表现明显好于平均人类水平。表现差异最大的任务是 <code>moving-items</code> 任务，人类参与者很少成功，这很可能是因为与网络相关的控制延迟。</p>
+<div class="gallery ">
+              <p><img src="/images/dda/fig4.png" class="lazyload" data-srcset="/images/dda/fig4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 4"></p>
+            </div>
+<h3 id="任务转移">任务转移</h3>
+<p>我们发现：在每个任务上的训练步数固定的情况下，在所有的 104 个 MiniWob++ 任务上训练一个智能体的效果要好于为每个任务分别训练智能体的效果。为了比较这些训练方法，我们采取的性能指标为每个单独的任务所消耗的帧数的函数。图 5 显示了所有任务的平均分数。这些结果表明：统一的控制接口在支持多样化人类任务范围内的泛化方面有着巨大的潜力。</p>
+<div class="gallery ">
+              <p><img src="/images/dda/fig5.png" class="lazyload" data-srcset="/images/dda/fig5.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 5"></p>
+            </div>
+<h3 id="缩放">缩放</h3>
+<div class="gallery ">
+              <p><img src="/images/dda/fig7.png" class="lazyload" data-srcset="/images/dda/fig7.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 7"></p>
+            </div>
+<p>如图 7 所示：人类轨迹数据集的大小是智能体效果好的一个关键因素。如果只使用数据集的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle displaystyle="true" scriptlevel="0"><mfrac><mn>1</mn><mn>1000</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\dfrac{1}{1000}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>（约 6 小时的数据），那么智能体会快速过拟合，并且相较于只使用 RL 的方法没有显著提升。并且随着将数据量逐渐增加三个数量级直到完整数据集的大小，我们发现智能体的效果在持续变好。我们还注意到，通过改变算法或者架构，在这些大小的数据集上可能会实现更高的性能。例如：当我们减小数据集大小时，我们只是通过减小 BC 的损失的权重（根据相对大小的平方根进行缩放）以缓解过拟合，但是实际上更有效的方法可能是对预训练的 BC 策略使用 KL 散度进行惩罚，这个策略会尝试最小化验证集上的损失。然而，为了探索在低数据环境下提高学习效率的方法，应当平衡所需的研究和实验成本与收集更多数据的简便性。</p>
+<h3 id="输入输出消融实验">输入输出消融实验</h3>
+<p>我们的智能体结合了像素图像和 DOM 信息作为输入，并且设置为支持许多不同的动作。因此我们进行了消融实验以探究这些因素的重要性。</p>
+<div class="gallery ">
+              <p><img src="/images/dda/fig8.png" class="lazyload" data-srcset="/images/dda/fig8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="图 8"></p>
+            </div>
+<p>首先对输入进行消融。如图 8a 所示：我们现在的智能体设置非常依赖 DOM 信息，如果删除此输入，性能会下降 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>75</mn><mi mathvariant="normal">%</mi></mrow><annotation encoding="application/x-tex">75\%</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80556em;vertical-align:-0.05556em;"></span><span class="mord">7</span><span class="mord">5</span><span class="mord">%</span></span></span></span>。相比之下，智能体对没有视觉信息的操作不那么敏感，甚至是在需要处理有形状和线条的“画布”时也是如此。对于 DOM 的检查表明：在 MiniWob++ 中，画布在 DOM 中被清晰地表示出来了，这使得智能体可以在没有视觉信息的情况下获取到这些信息。但是这并不适用于更一般的计算机控制任务，因此提升智能体的仅基于像素的性能十分重要。</p>
+<p>接下来对输出进行消融，主要考虑不让智能体使用环境给出的输入文本（任务字段）的情况。有趣的是，智能体依然能够完成需要表单填充的任务。但是，智能体从人类轨迹中学到的是：高亮文本，并将其拖到相关的文本框中。值得注意的是，这个拖拽操作在原始的 Selenium 环境中是不能直接做到的。</p>
+<p>在图 8b 中，我们进一步探索了智能体不能与特定的 DOM 元素交互的情况。这意味着智能体不能解决在画布内单击，拖拽或者高亮特定的位置的任务。由于我们没有对这种架构进行优化，因此代理可用的动作与人类轨迹存在着较大的不匹配。在模仿学习中，我们简单地忽略了这些动作，但是这仍然会将智能体推向不一定最优的基于 DOM 动作的轨迹。在另外一个实验中，我们发现将原始动作与基于 DOM 的动作结合并不会让效果变得更好。</p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://lornd.top/null.html>https://lornd.top/null.html</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-09-17T21:13:49+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2023年9月17日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://lornd.top/null.html&title=[论文解读]A Data-Driven Approach for Learning to Control Computers - lornd's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://lornd.top/null.html&title=[论文解读]A Data-Driven Approach for Learning to Control Computers - lornd's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://lornd.top/null.html&title=[论文解读]A Data-Driven Approach for Learning to Control Computers - lornd's blog&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/flin.html'>
+          <p class='title'>[论文解读]FLIN: A Flexible Natural Language Interface for Web Navigation<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>论文地址：FLIN: A Flexible Natural Language Interface for Web Navigation 。
+摘要
+AI 助手现在可以通过直接与网页 UI 交互为用...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+  <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.0/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D"><span class="toc-text">背景介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%96%87%E6%96%B9%E6%B3%95"><span class="toc-text">本文方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#miniwob"><span class="toc-text">MiniWob++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%8E%A5%E5%8F%A3"><span class="toc-text">环境接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%BA%E8%83%BD%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-text">智能体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E7%B1%BB%E6%95%B0%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="toc-text">人类数据收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-text">训练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81"><span class="toc-text">实验验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#miniwob-%E4%B8%8A%E4%BA%BA%E7%B1%BB%E6%B0%B4%E5%B9%B3%E7%9A%84%E8%A1%A8%E7%8E%B0"><span class="toc-text">MiniWob++ 上人类水平的表现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E8%BD%AC%E7%A7%BB"><span class="toc-text">任务转移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%A9%E6%94%BE"><span class="toc-text">缩放</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-text">输入输出消融实验</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="[论文解读]A Data-Driven Approach for Learning to Control Computers";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="none";
+    cover_wrapper.style.display="none";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('/js/search/hexo.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://lornd.top' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://lornd.top' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://lornd.top' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
